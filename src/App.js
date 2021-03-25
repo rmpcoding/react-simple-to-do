@@ -8,10 +8,8 @@ function App() {
     const addToDo = (e) => {
         e.preventDefault();
         console.log(`This is the input: ${input}`);
-        console.log(todos);
         setTodos([...todos, input]);
         setInput("");
-        console.log(todos);
     };
 
     return (
