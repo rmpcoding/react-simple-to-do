@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Todos from './Todos/Todos';
 import './App.css';
 
 function App() {
@@ -7,17 +8,24 @@ function App() {
 
     const capitalizeFirstLetter = (string) => {
         string = string.trim();
-        return string.charAt(0).toUpperCase() + string.slice(1)
-    }
-
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
 
     const addToDo = (e) => {
         e.preventDefault();
-        let sanitizedString = capitalizeFirstLetter(input)
-        console.log(`This is the input: ${sanitizedString}`);
+        let sanitizedString = capitalizeFirstLetter(input);
         setTodos([...todos, sanitizedString]);
         setInput('');
     };
+
+    // I named this parentFunction for myself, for my present and perhaps future self. 
+    // parentFunction gets passed down to Todos.js
+    // When a todo note's delete button is clicked, a filter method filters out the array of Todos
+    // That filtered array is returned as childData in parentFunction
+    // Which then sets the Todos into an updated array of notes which were not deleted. 
+    const updateTodos = (childData) => {
+        setTodos(childData)
+    }
 
     return (
         <div className="App">
@@ -37,7 +45,9 @@ function App() {
             </form>
             <h2>List of todos:</h2>
             {todos.map((todo) => (
-                <p>{todo}</p>
+                <>
+                    <Todos todo={todo} todos={todos} updateTodos={updateTodos} />
+                </>
             ))}
         </div>
     );
@@ -45,14 +55,11 @@ function App() {
 
 export default App;
 
-
-
-
 /*
 The ability to type into an input field and hit the ENTER key to add a TODO to a list of TODO's
 Each TODO must automatically be capitalised when added to the list of TODO's
-
 The ability to delete a todo from the todo list
+
 The ability to update a todo from the todo list
 There should be a button on each TODO to indicate completion of a TODO, the text should turn green and have a strikethrough once completed
 The TODO app should be styled appropriately (you could use Glassmorphism!)

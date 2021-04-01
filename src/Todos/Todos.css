@@ -1,0 +1,7 @@
+.todos__todoText {
+    display: inline-flex;
+}
+
+.todos__button {
+    justify-content: space-between;
+}
